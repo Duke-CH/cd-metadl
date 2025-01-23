@@ -76,7 +76,7 @@ flags.DEFINE_integer("max_time", 1000, "Max time in seconds per test task.")
 
 # Tesk tasks per dataset
 # The total number of test tasks will be num_datasets x test_tasks_per_dataset
-flags.DEFINE_integer("test_tasks_per_dataset", 100,
+flags.DEFINE_integer("test_tasks_per_dataset", 10,
     "Number of test tasks per dataset.")
 
 # Default location of directories
@@ -85,7 +85,7 @@ flags.DEFINE_string("input_data_dir", "../../public_data", "Path to the "
     + "directory containing the meta_train and meta_test data.")
 flags.DEFINE_string("output_dir_ingestion","../../ingestion_output", 
     "Path to the output directory for the ingestion program.")
-flags.DEFINE_string("submission_dir", "../../baselines/random",
+flags.DEFINE_string("submission_dir", "../../baselines/protonet",
     "Path to the directory containing the solution to use.")
 
 # =============================================================================
@@ -113,6 +113,7 @@ def ingestion(argv) -> None:
     
     # Define the path to the directories
     input_dir = os.path.abspath(FLAGS.input_data_dir)
+    print("The input_dir is", input_dir)
     output_dir = os.path.abspath(FLAGS.output_dir_ingestion)
     submission_dir = os.path.abspath(FLAGS.submission_dir)
         
@@ -143,7 +144,7 @@ def ingestion(argv) -> None:
     # Import your model
     path.insert(1, submission_dir)
     try:
-        from model import MyMetaLearner, MyLearner
+        from baselines.protonet.model import MyMetaLearner, MyLearner
     except:
         print(f"MyMetaLearner and MyLearner not found in {submission_dir}"
             + "/model.py")

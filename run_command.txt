@@ -1,0 +1,7 @@
+python -m cdmetadl.run \
+    --input_data_dir=public_data \
+    --submission_dir=baselines/protonet \
+    --output_dir_ingestion=ingestion_output \
+    --output_dir_scoring=scoring_output \
+    --verbose=True \
+    --overwrite_previous_results=True \
