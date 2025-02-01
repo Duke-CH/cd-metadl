@@ -1,0 +1,4 @@
+{
+	"meta-train": ["DOG", "BRD", "PLK", "INS", "FLW", "PLT_NET", "PLT_VIL", "MED_LF", "BCT", "PNU", "RESISC", "RSICB", "CRS", "APL", "TEX", "TEX_DTD", "SPT", "APT_40", "MD_MIX", "MD_5_BIS"],
+	"meta-test": ["AWA", "INS_2", "FNG", "PLT_DOC", "PRT", "RSD", "BTS", "TEX_ALOT", "APT_410", "MD_6"]
+}
