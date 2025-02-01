@@ -42,7 +42,7 @@ flags.DEFINE_string("input_data_dir", "../public_data", "Path to the directory"
 flags.DEFINE_string("output_dir_ingestion","../ingestion_output", 
     "Path to the output directory for the ingestion program.")
 
-flags.DEFINE_string("submission_dir", "../baselines/random", 
+flags.DEFINE_string("submission_dir", "../baselines/protonet",
     "Path to the directory containing the solution to use.")
 
 flags.DEFINE_string("output_dir_scoring", "../scoring_output", 
@@ -67,6 +67,8 @@ def main(argv) -> None:
     output_dir_ingestion = FLAGS.output_dir_ingestion
     submission_dir = FLAGS.submission_dir
     output_dir_scoring = FLAGS.output_dir_scoring
+
+    print("The submission directory is", submission_dir)
     
     command_ingestion = "python -m cdmetadl.ingestion.ingestion " \
         + f"--seed={seed} " \
