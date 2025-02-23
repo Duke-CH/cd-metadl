@@ -73,9 +73,12 @@ class MyMetaLearner(MetaLearner):
         
         # General data parameters
         self.should_train = True
-        self.train_tasks = 20
-        self.val_tasks = 10
-        self.val_after = 5
+        # Train epoch and valid epoch setting
+        # On original paper: train -> 60,000, valid -> , valid_step ->
+        # Recommendation: train -> 1000, valid -> 200, step -> 50 increase is possible
+        self.train_tasks = 40000
+        self.val_tasks = 1000
+        self.val_after = 100
         
         # General model parameters
         self.meta_batch_size = 1

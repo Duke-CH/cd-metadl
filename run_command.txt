@@ -1,7 +1,7 @@
 python -m cdmetadl.run \
-    --input_data_dir=public_data \
-    --submission_dir=baselines/protonet \
-    --output_dir_ingestion=ingestion_output \
-    --output_dir_scoring=scoring_output \
+    --input_data_dir=../../../projects_students/vimb02/meta-album \
+    --submission_dir=baselines/protonet\
+    --output_dir_ingestion=ingestion_output_pnR4w\
+    --output_dir_scoring=scoring_output_pnR4w \
     --verbose=True \
     --overwrite_previous_results=True \

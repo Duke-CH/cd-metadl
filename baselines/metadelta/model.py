@@ -105,7 +105,7 @@ class MyMetaLearner(MetaLearner):
         self.timer = timer()
         self.timer.initialize(time.time(), TIME_TRAIN - time.time() + t1)
         self.timer.begin('load pretrained model')
-        self.model = Wrapper(rn_timm_mix(True, 'swsl_resnet50', 
+        self.model = Wrapper(rn_timm_mix(False, 'swsl_resnet50',
             0.1)).to(DEVICE)
         
         times = self.timer.end('load pretrained model')

@@ -75,9 +75,9 @@ class MyMetaLearner(MetaLearner):
         # General data parameters
         self.should_train = True
         self.ncc = False
-        self.train_tasks = 20
-        self.val_tasks = 10
-        self.val_after = 5
+        self.train_tasks = 30000
+        self.val_tasks = 800
+        self.val_after = 100
         
         # MAML parameters
         self.base_lr = 0.01
@@ -93,7 +93,7 @@ class MyMetaLearner(MetaLearner):
             "num_classes": self.train_classes, 
             "dev": self.dev, 
             "num_blocks": 18, 
-            "pretrained": False 
+            "pretrained": False
         }
         
         # Meta-learner

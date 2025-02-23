@@ -76,7 +76,7 @@ flags.DEFINE_integer("max_time", 1000, "Max time in seconds per test task.")
 
 # Tesk tasks per dataset
 # The total number of test tasks will be num_datasets x test_tasks_per_dataset
-flags.DEFINE_integer("test_tasks_per_dataset", 10,
+flags.DEFINE_integer("test_tasks_per_dataset", 100,
     "Number of test tasks per dataset.")
 
 # Default location of directories
@@ -144,12 +144,12 @@ def ingestion(argv) -> None:
     # Import your model
     path.insert(1, submission_dir)
     try:
-        from baselines.protonet.model import MyMetaLearner, MyLearner
+        from baselines.protonet.model import (MyMetaLearner, MyLearner)
     except:
         print(f"MyMetaLearner and MyLearner not found in {submission_dir}"
             + "/model.py")
         exit(1)        
-        
+
     vprint(f"\n{'#'*60}\n{'#'*17} Ingestion program starts {'#'*17}\n{'#'*60}", 
         VERBOSE)
     
