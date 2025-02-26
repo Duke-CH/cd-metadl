@@ -76,8 +76,8 @@ class MyMetaLearner(MetaLearner):
         # Train epoch and valid epoch setting
         # On original paper: train -> 60,000, valid -> , valid_step ->
         # Recommendation: train -> 1000, valid -> 200, step -> 50 increase is possible
-        self.train_tasks = 40000
-        self.val_tasks = 1000
+        self.train_tasks = 10000
+        self.val_tasks = 800
         self.val_after = 100
         
         # General model parameters
@@ -252,6 +252,9 @@ class MyMetaLearner(MetaLearner):
                     * len(y_test)) 
             
         return out, loss
+
+    def get_hyper_parameters(self):
+        return [self.train_tasks, self.val_tasks, self.val_after, self.model_args["pretrained"]]
 
     @contextlib.contextmanager
     def empty_context(self) -> None:

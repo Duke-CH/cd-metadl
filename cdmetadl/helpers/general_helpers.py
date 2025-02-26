@@ -254,8 +254,6 @@ def check_datasets(input_dir: str,
 
 
 def prepare_datasets_information(input_dir: str,
-                                 validation_datasets: int,
-                                 seed: int,
                                  verbose: bool=False,
                                  scoring: bool=False) -> Tuple[dict,dict,dict]:
     """ Prepare the required dataset information for the available datasets.
@@ -283,34 +281,29 @@ def prepare_datasets_information(input_dir: str,
     vprint("\tChecking info splits file", verbose)
     split_file = os.path.join(info_dir, "meta_splits.txt")
     exist_file(split_file)
-    
+
     vprint("\tReading splits file", verbose)
     splits = load_json(split_file)
 
-    test_datasets = splits["meta-test"]
+    test_datasets = splits.get("meta-test", [])
+
     if scoring:
         train_datasets_info = None
         valid_datasets_info = None
     else:
-        train_datasets = splits["meta-train"]
-        random_gen = check_random_state(seed)
-        if validation_datasets is not None and validation_datasets > 0:
-            random_gen.shuffle(train_datasets)
-            valid_datasets = train_datasets[:validation_datasets]
-            train_datasets = train_datasets[validation_datasets:]
-        else:
-            valid_datasets = list() 
+        train_datasets = splits.get("meta-train", [])
+        valid_datasets = splits.get("meta-valid", [])  # Read explicitly from file
 
         vprint("\tChecking train datasets", verbose)
         train_datasets_info = check_datasets(input_dir, train_datasets, verbose)
-        
+
         vprint("\tChecking validation datasets", verbose)
         valid_datasets_info = check_datasets(input_dir, valid_datasets, verbose)
-    
+
     vprint("\tChecking test datasets", verbose)
     test_datasets_info = check_datasets(input_dir, test_datasets, verbose)
-    
-    return train_datasets_info, valid_datasets_info, test_datasets_info  
+
+    return train_datasets_info, valid_datasets_info, test_datasets_info
 
 
 def natural_sort(text: str) -> list:

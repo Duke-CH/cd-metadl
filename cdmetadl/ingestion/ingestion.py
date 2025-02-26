@@ -208,11 +208,6 @@ def ingestion(argv) -> None:
                 exit(1)
         if "validation_datasets" in user_config:
             validation_datasets = user_config["validation_datasets"]
-            if validation_datasets is not None and validation_datasets > 9:
-                print("[-] Defining generators config: validation_datasets " +
-                      "cannot be greater than 9. Received: "
-                      + f"{validation_datasets}")
-                exit(1)
         if "train_config" in user_config:
             train_generator_config.update(user_config["train_config"])
         if "valid_config" in user_config:
@@ -222,9 +217,12 @@ def ingestion(argv) -> None:
     
     vprint("\nPreparing datasets info...", VERBOSE)
     (train_datasets_info, valid_datasets_info, 
-     test_datasets_info) = prepare_datasets_information(input_dir, 
-        validation_datasets, SEED, VERBOSE)
+     test_datasets_info) = prepare_datasets_information(input_dir, VERBOSE)
     vprint("[+] Datasets info", VERBOSE)
+
+    print("Training datasets are: ", train_datasets_info)
+    print("\nValidation datasets are: ", valid_datasets_info)
+    print("\nTest datasets are: ", test_datasets_info)
     
     # Initialize genetators
     vprint("\nInitializing data generators...", VERBOSE)
@@ -350,7 +348,6 @@ def ingestion(argv) -> None:
             join_list(train_settings),
             join_list(validation_settings),
             join_list(test_settings),
-            f"\n{'*'*41}"
         ]
     else:
         all_settings = [
@@ -359,7 +356,6 @@ def ingestion(argv) -> None:
             join_list(data_settings),
             join_list(train_settings),
             join_list(test_settings),
-            f"\n{'*'*41}"
         ]
 
     experimental_settings = join_list(all_settings)
@@ -421,6 +417,19 @@ def ingestion(argv) -> None:
         global_metadata_file.write("Tasks per dataset: "
             + f"{TEST_TASKS_PER_DATASET}")
     vprint(f"\nOverall time spent: {total_time} seconds", VERBOSE)
+
+    train_hyperparameters = meta_learner.get_hyper_parameters()
+    hyper_parameters_settings = [
+        "\n----- Hyper-Parameters -----",
+        f"\nNumber of train tasks: {train_hyperparameters[0]}",
+        f"\nNumber of validation tasks: {train_hyperparameters[1]}",
+        f"\nModel validated after every {train_hyperparameters[2]} steps",
+        f"\nThe model is pretrained: {train_hyperparameters[3]}",
+        f"\nThe seed is: {SEED}",
+        f"\n\n{'*' * 41}"
+    ]
+    with open(experimental_settings_file, "a") as f:
+        f.writelines(hyper_parameters_settings)
         
     vprint(f"\n{'#'*60}\n{'#'*9} Ingestion program finished successfully "
         + f"{'#'*10}\n{'#'*60}", VERBOSE)

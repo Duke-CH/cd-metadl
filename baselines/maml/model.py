@@ -75,7 +75,7 @@ class MyMetaLearner(MetaLearner):
         # General data parameters
         self.should_train = True
         self.ncc = False
-        self.train_tasks = 30000
+        self.train_tasks = 10000
         self.val_tasks = 800
         self.val_after = 100
         
@@ -332,6 +332,9 @@ class MyMetaLearner(MetaLearner):
                 loss = model.criterion(out, y_test) / reg
                 
         return out, loss
+
+    def get_hyper_parameters(self):
+        return [self.train_tasks, self.val_tasks, self.val_after, self.model_args["pretrained"]]
 
     @contextlib.contextmanager
     def empty_context(self) -> None:

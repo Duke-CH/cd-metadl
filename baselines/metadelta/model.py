@@ -252,6 +252,9 @@ class MyMetaLearner(MetaLearner):
         self.model.load_state_dict(pickle.loads(best_param))
         return MyLearner(self.model.cpu())
 
+    def get_hyper_parameters(self):
+        return ["Metadelta", "Metadelta", "Metadelta", self.pretrained]
+
 
 class MyLearner(Learner):
 

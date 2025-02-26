@@ -1,4 +1,5 @@
 {
-	"meta-train": ["DOG", "BRD", "PLK", "INS", "FLW", "PLT_NET", "PLT_VIL", "MED_LF", "BCT", "PNU", "RESISC", "RSICB", "CRS", "APL", "TEX", "TEX_DTD", "SPT", "ACT_40", "MD_MIX", "MD_5_BIS"],
-	"meta-test": ["AWA", "INS_2", "FNG", "PLT_DOC", "PRT", "RSD", "BTS", "TEX_ALOT", "ACT_410", "MD_6"]
+	"meta-train": ["BRD", "PLK", "FLW", "PLT_VIL", "BCT", "RESISC", "CRS", "TEX", "SPT", "MD_MIX"],
+	"meta-valid": ["DOG", "INS_2", "PLT_NET", "MED_LF", "PNU", "RSICB", "APL", "TEX_DTD", "ACT_40", "MD_5_BIS"],
+	"meta-test": ["AWA", "INS", "FNG", "PLT_DOC", "PRT", "RSD", "BTS", "TEX_ALOT", "ACT_410", "MD_6"]
 }
