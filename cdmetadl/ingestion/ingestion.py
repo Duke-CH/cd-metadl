@@ -217,7 +217,7 @@ def ingestion(argv) -> None:
     
     vprint("\nPreparing datasets info...", VERBOSE)
     (train_datasets_info, valid_datasets_info, 
-     test_datasets_info) = prepare_datasets_information(input_dir, VERBOSE)
+     test_datasets_info) = prepare_datasets_information(input_dir, SEED, VERBOSE)
     vprint("[+] Datasets info", VERBOSE)
 
     print("Training datasets are: ", train_datasets_info)

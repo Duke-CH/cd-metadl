@@ -254,6 +254,7 @@ def check_datasets(input_dir: str,
 
 
 def prepare_datasets_information(input_dir: str,
+                                 seed: int,
                                  verbose: bool=False,
                                  scoring: bool=False) -> Tuple[dict,dict,dict]:
     """ Prepare the required dataset information for the available datasets.
@@ -291,8 +292,12 @@ def prepare_datasets_information(input_dir: str,
         train_datasets_info = None
         valid_datasets_info = None
     else:
+        random_gen = check_random_state(seed)
+
         train_datasets = splits.get("meta-train", [])
         valid_datasets = splits.get("meta-valid", [])  # Read explicitly from file
+        random_gen.shuffle(train_datasets)
+        random_gen.shuffle(valid_datasets)
 
         vprint("\tChecking train datasets", verbose)
         train_datasets_info = check_datasets(input_dir, train_datasets, verbose)

@@ -120,7 +120,7 @@ def scoring(argv) -> None:
     
     # Prepare test generator to access test tasks
     vprint("\nPreparing datasets info...", VERBOSE)
-    _, _, test_datasets_info = prepare_datasets_information(ref_dir, VERBOSE, True)
+    _, _, test_datasets_info = prepare_datasets_information(ref_dir, SEED, VERBOSE, True)
     vprint("[+] Datasets info", VERBOSE)
     
     vprint("\nInitializing test generator...", VERBOSE)
