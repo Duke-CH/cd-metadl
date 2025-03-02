@@ -49,7 +49,7 @@ import torch.nn.functional as F
 from typing import Iterable, Any, Tuple, List
 
 # --------------- MANDATORY ---------------
-SEED = 98
+SEED = 93
 torch.backends.cudnn.deterministic = True
 torch.backends.cudnn.benchmark = False
 random.seed(SEED)    
@@ -67,7 +67,8 @@ class MyMetaLearner(MetaLearner):
     def __init__(self, 
                  train_classes: int, 
                  total_classes: int,
-                 logger: Any) -> None:
+                 logger: Any,
+                 pretrained = False) -> None:
         """ Defines the meta-learning algorithm's parameters. For example, one 
         has to define what would be the meta-learner's architecture. 
         
@@ -105,7 +106,7 @@ class MyMetaLearner(MetaLearner):
         self.timer = timer()
         self.timer.initialize(time.time(), TIME_TRAIN - time.time() + t1)
         self.timer.begin('load pretrained model')
-        self.model = Wrapper(rn_timm_mix(False, 'swsl_resnet50',
+        self.model = Wrapper(rn_timm_mix(pretrained, 'swsl_resnet50',
             0.1)).to(DEVICE)
         
         times = self.timer.end('load pretrained model')

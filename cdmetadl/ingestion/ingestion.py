@@ -88,6 +88,9 @@ flags.DEFINE_string("output_dir_ingestion","../../ingestion_output",
 flags.DEFINE_string("submission_dir", "../../baselines/protonet",
     "Path to the directory containing the solution to use.")
 
+# The model backbone should be initialized randomly or pretrained
+flags.DEFINE_boolean("pretrained", False, "Whether to use pretrained weights.")
+
 # =============================================================================
 # =========================== END USER OPTIONS ================================
 # =============================================================================
@@ -107,9 +110,12 @@ def ingestion(argv) -> None:
     OVERWRITE_PREVIOUS_RESULTS = FLAGS.overwrite_previous_results
     MAX_TIME = FLAGS.max_time
     TEST_TASKS_PER_DATASET = FLAGS.test_tasks_per_dataset
+    PRETRAINED = FLAGS.pretrained
 
     vprint(f"Ingestion program version: {VERSION}", VERBOSE)
     vprint(f"Using random seed: {SEED}", VERBOSE)
+
+    print("The model is pretrained: ", PRETRAINED)
     
     # Define the path to the directories
     input_dir = os.path.abspath(FLAGS.input_data_dir)
@@ -367,7 +373,7 @@ def ingestion(argv) -> None:
     # Meta-train
     vprint("\nMeta-training your meta-learner...", VERBOSE)
     meta_training_start = time.time()
-    meta_learner = MyMetaLearner(train_classes, total_classes, logger)
+    meta_learner = MyMetaLearner(train_classes, total_classes, logger, PRETRAINED)
     learner = meta_learner.meta_fit(meta_train_generator, meta_valid_generator)
     meta_training_time = time.time() - meta_training_start
     learner.save(model_dir)

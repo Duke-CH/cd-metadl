@@ -102,7 +102,8 @@ class MetaLearner():
     def __init__(self, 
                  train_classes, 
                  total_classes, 
-                 logger) -> None:
+                 logger,
+                 pretrained = False) -> None:
         """ Defines the meta-learning algorithm's parameters. For example, one 
         has to define what would be the meta-learner's architecture. 
         

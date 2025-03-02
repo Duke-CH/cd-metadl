@@ -20,7 +20,7 @@ from helpers_protonet import *
 from api import MetaLearner, Learner, Predictor
 
 # --------------- MANDATORY ---------------
-SEED = 98
+SEED = 93
 torch.backends.cudnn.deterministic = True
 torch.backends.cudnn.benchmark = False
 random.seed(SEED)    
@@ -36,7 +36,8 @@ class MyMetaLearner(MetaLearner):
     def __init__(self, 
                  train_classes: int, 
                  total_classes: int,
-                 logger: Any) -> None:
+                 logger: Any,
+                 pretrained = False) -> None:
         """ Defines the meta-learning algorithm's parameters. For example, one 
         has to define what would be the meta-learner's architecture. 
         
@@ -88,7 +89,7 @@ class MyMetaLearner(MetaLearner):
             "num_classes": self.train_classes, 
             "dev": self.dev, 
             "num_blocks": 18, 
-            "pretrained": False 
+            "pretrained": pretrained
         }
         
         # Meta-learner

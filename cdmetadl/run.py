@@ -48,6 +48,9 @@ flags.DEFINE_string("submission_dir", "../baselines/protonet",
 flags.DEFINE_string("output_dir_scoring", "../scoring_output", 
     "Path to the ourput directory for the scoring program.")
 
+# The model backbone should be initialized randomly or pretrained
+flags.DEFINE_boolean("pretrained", False, "Whether to use pretrained weights.")
+
 
 def main(argv) -> None:
     """ Runs the ingestion and scoring programs sequentially, as they are 
@@ -67,8 +70,10 @@ def main(argv) -> None:
     output_dir_ingestion = FLAGS.output_dir_ingestion
     submission_dir = FLAGS.submission_dir
     output_dir_scoring = FLAGS.output_dir_scoring
+    pretrained = FLAGS.pretrained
 
     print("The submission directory is", submission_dir)
+    print("The model is pretrained: ", pretrained)
     
     command_ingestion = "python -m cdmetadl.ingestion.ingestion " \
         + f"--seed={seed} " \
@@ -80,6 +85,7 @@ def main(argv) -> None:
         + f"--test_tasks_per_dataset={test_tasks_per_dataset} " \
         + f"--input_data_dir={input_data_dir} " \
         + f"--output_dir_ingestion={output_dir_ingestion} " \
+        + f"--pretrained={pretrained} " \
         + f"--submission_dir={submission_dir}"
 
     command_scoring = "python -m cdmetadl.scoring.scoring " \
