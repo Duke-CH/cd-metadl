@@ -21,7 +21,7 @@ from helpers_maml import *
 from api import MetaLearner, Learner, Predictor
 
 # --------------- MANDATORY ---------------
-SEED = 93
+SEED = 100
 torch.backends.cudnn.deterministic = True
 torch.backends.cudnn.benchmark = False
 random.seed(SEED)    

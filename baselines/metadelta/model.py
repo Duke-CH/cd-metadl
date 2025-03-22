@@ -49,7 +49,7 @@ import torch.nn.functional as F
 from typing import Iterable, Any, Tuple, List
 
 # --------------- MANDATORY ---------------
-SEED = 93
+SEED = 100
 torch.backends.cudnn.deterministic = True
 torch.backends.cudnn.benchmark = False
 random.seed(SEED)    
@@ -102,11 +102,12 @@ class MyMetaLearner(MetaLearner):
         # - self.total_classes (int)
         # - self.log (function) See the above description for details
         super().__init__(train_classes, total_classes, logger)
+        self.pretrained = pretrained
         
         self.timer = timer()
         self.timer.initialize(time.time(), TIME_TRAIN - time.time() + t1)
         self.timer.begin('load pretrained model')
-        self.model = Wrapper(rn_timm_mix(pretrained, 'swsl_resnet50',
+        self.model = Wrapper(rn_timm_mix(self.pretrained, 'swsl_resnet50',
             0.1)).to(DEVICE)
         
         times = self.timer.end('load pretrained model')

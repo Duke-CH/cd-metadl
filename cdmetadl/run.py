@@ -31,7 +31,7 @@ flags.DEFINE_integer("max_time", 1000,
 flags.DEFINE_boolean("overwrite_previous_results", False, 
     "Overwrite results flag.")
 
-flags.DEFINE_integer("test_tasks_per_dataset", 100, 
+flags.DEFINE_integer("test_tasks_per_dataset", 500,
     "Number of test tasks per dataset.")
 
 flags.DEFINE_boolean("private_information", False, "Private information flag.")
